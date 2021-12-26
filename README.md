@@ -1,7 +1,7 @@
 # ChemTONIC: Simplifying chemical data curation
-![alt text](https://github.com/mldlproject/chemtonic/blob/main/chemtonic.svg)
-
 **T.-Hoang Nguyen-Vo**
+
+![alt text](https://github.com/mldlproject/chemtonic/blob/main/chemtonic.svg)
 
 Data curation is undoubtedly the most essential stage before running any modeling experiments. Now, although commercial and non-commercial tools and software for data curation are available, to our knowledge there are neither tools nor software developed to support entire substages in data curation. Rdkit is a powerful Python library developed to deal with most chemical data issues but it is an enormous source of functions that may confuse newcomers. Besides, since Rdkit provides users with a bunch of functions tackling numerous processing issues only, users need to design their data curation process using Rdkit's supported modules on their own. In other words, newcomers or even experienced users may get into trouble when performing data curation regardless of being supported by Rdkit. 
 
