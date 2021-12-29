@@ -54,12 +54,12 @@ def clSalts(compounds, getSalts=False, getSaltsIdx=False, deSalt=False, printlog
             if saltCount > 0:
                 if deSalt:
                     print("{}/{} structures are NOT salts".format(len(NonSaltsList)-saltCount, len(compounds)))
-                    print("{}/{} structures are salts BUT were desalted".format(saltCount, len(compounds)))  
+                    print("{}/{} structure(s) is/are salt(s) BUT was/were desalted".format(saltCount, len(compounds)))  
                     print("=======================================================")
-                    print("!!!!!Notice: Desalting compounds are not recommended without reasonable purpose!!!!!")   
+                    print("!!!!!Notice: Desalting compound(s) is not recommended without reasonable purpose!!!!!")   
                 else:
                     print("{}/{} structures are NOT salts".format(len(NonSaltsList), len(compounds)))
-                    print("{}/{} structures are salts and were removed".format(saltCount, len(compounds)))
+                    print("{}/{} structure(s) is/are salt(s) and was/were removed".format(saltCount, len(compounds)))
             else:
                 print("{}/{} structures are NOT salts".format(len(NonSaltsList), len(compounds)))
         else:
@@ -67,12 +67,12 @@ def clSalts(compounds, getSalts=False, getSaltsIdx=False, deSalt=False, printlog
             if saltCount > 0:
                 if deSalt:
                     print("{}/{} structures are NOT salts".format(len(NonSaltsList)-saltCount, len(compounds)))
-                    print("{}/{} structures are salts BUT were desalted".format(saltCount, len(compounds)))
+                    print("{}/{} structure(s) is/are salt(s) BUT was/were desalted".format(saltCount, len(compounds)))
                     print("=======================================================")
-                    print("!!!!!Notice: Desalting compounds are not recommended without reasonable purpose!!!!!")   
+                    print("!!!!!Notice: Desalting compound(s) is not recommended without reasonable purpose!!!!!")   
                 else:
                     print("{}/{} structures are NOT salts".format(len(NonSaltsList), len(compounds)))
-                    print("{}/{} structures are salts and were removed".format(saltCount, len(compounds)))
+                    print("{}/{} structure(s) is/are salt(s) and was/were removed".format(saltCount, len(compounds)))
             else:
                 print("{}/{} structures are NOT salts".format(len(NonSaltsList), len(compounds)))
         print("=======================================================")
@@ -135,12 +135,12 @@ def clCharges(compounds, getCharges=False, getChargesIdx=False, deCharges=False,
             if Charge_count > 0:
                 if deCharges:
                     print("{}/{} structures are NOT charges".format(len(NonChargesList)-Charge_count, len(compounds)))
-                    print("{}/{} structures are charges BUT were neutralized".format(Charge_count, len(compounds)))
+                    print("{}/{} structure(s) is/are charge(s) BUT was/were neutralized".format(Charge_count, len(compounds)))
                     print("=======================================================")
-                    print("!!!!!Notice: Neutralizing charged compounds are not recommended without reasonable purpose!!!!!")   
+                    print("!!!!!Notice: Neutralizing charged compound(s) is not recommended without reasonable purpose!!!!!")   
                 else:
                     print("{}/{} structures are NOT charges".format(len(NonChargesList)-Charge_count, len(compounds)))
-                    print("{}/{} structures are charges BUT were NOT neutralized".format(Charge_count, len(compounds))) 
+                    print("{}/{} structure(s) is/are charge(s) BUT was/were NOT neutralized".format(Charge_count, len(compounds))) 
             else:
                 print("{}/{} structures are NOT charges".format(len(NonChargesList), len(compounds)))    
         else:
@@ -148,12 +148,12 @@ def clCharges(compounds, getCharges=False, getChargesIdx=False, deCharges=False,
             if Charge_count > 0:
                 if deCharges:
                     print("{}/{} structures are NOT charges".format(len(NonChargesList)-Charge_count, len(compounds)))
-                    print("{}/{} structures are charges BUT were neutralized".format(Charge_count, len(compounds)))
+                    print("{}/{} structure(s) is/are charge(s) BUT was/were neutralized".format(Charge_count, len(compounds)))
                     print("=======================================================")
-                    print("!!!!!Notice: Neutralizing charged compounds are not recommended without reasonable purpose!!!!!")  
+                    print("!!!!!Notice: Neutralizing charged compound(s) is not recommended without reasonable purpose!!!!!")  
                 else:
                     print("{}/{} structures are NOT charges".format(len(NonChargesList)-Charge_count, len(compounds)))
-                    print("{}/{} structures are charges BUT were NOT neutralized".format(Charge_count, len(compounds)))
+                    print("{}/{} structure(s) is/are charge(s) BUT was/were NOT neutralized".format(Charge_count, len(compounds)))
             else:
                 print("{}/{} structures are NOT charges".format(len(NonChargesList), len(compounds)))             
         print("=======================================================")
@@ -199,41 +199,41 @@ def cleanComplete(compounds, getUncleanedStruct=False, deSalt=False, neutralize=
     Unverified_count = len(UnverifiedList)
     #------------------------
     if deSalt:
-        compounds_r2  = clSalts(compounds_r1, deSalt=True, printlogs=False)
+        compounds_r2  = clSalts(compounds_r1, deSalt=True, printlogs=False) #test
         if neutralize:
-            compounds_r3  = clCharges(compounds_r2, deCharges=True, printlogs=False)
+            compounds_r3  = clCharges(compounds_r2, deCharges=True, printlogs=False) 
         else:
-            compounds_r3  = clCharges(compounds_r2, deCharges=False, printlogs=False)
+            compounds_r3  = clCharges(compounds_r2, deCharges=False, printlogs=False) 
     else:
-        compounds_r2  = clSalts(compounds_r1, deSalt=False, printlogs=False)
+        compounds_r2  = clSalts(compounds_r1, deSalt=False, printlogs=False) #test
         if neutralize:
             compounds_r3  = clCharges(compounds_r2, deCharges=True, printlogs=False)
         else:
             compounds_r3  = clCharges(compounds_r2, deCharges=False, printlogs=False)
     #------------------------
-    SaltsList, SaltsIdxList  = clSalts(compounds_r1, getSalts=True,getSaltsIdx=True, printlogs=False)
+    SaltsList, SaltsIdxList  = clSalts(compounds_r1, getSalts=True, getSaltsIdx=True, printlogs=False) #test
     Salts_count   = len(SaltsList)
     #------------------------
-    ChargesList, ChargesIdxList   = clCharges(compounds_r1, getCharges=True, getChargesIdx=True, printlogs=False)
+    ChargesList, ChargesIdxList   = clCharges(compounds_r1, getCharges=True, getChargesIdx=True, printlogs=False) #test
     Charges_count = len(ChargesList)
     #------------------------
     if printlogs:
         if Unverified_count > 0:
             print("=======================================================")
             print("Succeeded to verify {}/{} structures".format(len(compounds_r1), len(compounds)))
-            print("Failed to verify {} structures".format(Unverified_count))
+            print("Failed to verify {} structures \n".format(Unverified_count))
         else:
             print("=======================================================")
-            print("Succeeded to validate {}/{} structures".format(len(compounds_r1), len(compounds)))   
+            print("Succeeded to validate {}/{} structures \n".format(len(compounds_r1), len(compounds)))   
         if Salts_count > 0:
             if deSalt:
                 print("=======================================================")
                 print("{}/{} structures are NOT salts".format(len(compounds_r2)-Salts_count, len(compounds)))
-                print("{}/{} structures are salts BUT were desalted".format(Salts_count, len(compounds)))
+                print("{}/{} structure(s) is/are salt(s) BUT was/were desalted \n".format(Salts_count, len(compounds)))
             else:
                 print("=======================================================")
                 print("{}/{} structures are NOT salts".format(len(compounds_r2), len(compounds)))
-                print("{}/{} structures are salts and were removed".format(Salts_count, len(compounds)))
+                print("{}/{} structure(s) is/are salt(s) and was/were removed \n".format(Salts_count, len(compounds)))
         else:
             print("=======================================================")
             print("{}/{} structures are NOT salts".format(len(compounds_r2), len(compounds)))
@@ -242,12 +242,12 @@ def cleanComplete(compounds, getUncleanedStruct=False, deSalt=False, neutralize=
                 print("=======================================================")
                 compounds_r3_ = clCharges(compounds_r1, deCharges=True, printlogs=False)
                 print("{}/{} structures are NOT charges".format(len(compounds_r3_)-Charges_count, len(compounds)))
-                print("{}/{} structures are charges BUT were neutralized".format(Charges_count, len(compounds)))
+                print("{}/{} structure(s) is/are charge(s) BUT was/were neutralized \n".format(Charges_count, len(compounds)))
             else:
                 print("=======================================================")
                 compounds_r3_ = clCharges(compounds_r1, deCharges=False, printlogs=False)
                 print("{}/{} structures are NOT charges".format(len(compounds_r3_)-Charges_count, len(compounds)))
-                print("{}/{} structures are charges BUT were NOT neutralized".format(Charges_count, len(compounds)))
+                print("{}/{} structure(s) is/are charge(s) BUT was/were NOT neutralized \n".format(Charges_count, len(compounds)))
         else:
             print("=======================================================")
             print("{}/{} structures are NOT charges".format(len(compounds_r3), len(compounds)))
@@ -263,25 +263,25 @@ def cleanComplete(compounds, getUncleanedStruct=False, deSalt=False, neutralize=
         print("=======================================================")
         print("SUMMARY:")
         if len(UnverifiedList) > 0:
-            print("{}/{} structures are successfully verfied".format(len(compounds_r1), len(compounds)))   
-            print("{}/{} structures are unsuccessfully verfied and need to be rechecked".format(len(UnverifiedList), len(compounds)))
+            print("{}/{} structures were successfully verfied".format(len(compounds_r1), len(compounds)))   
+            print("{}/{} structure(s) was/were unsuccessfully verfied and need to be rechecked".format(len(UnverifiedList), len(compounds)))
         else:
-            print("{}/{} structures are successfully verfied".format(len(compounds_r1), len(compounds)))    
+            print("{}/{} structures were successfully verfied".format(len(compounds_r1), len(compounds)))    
         if len(UnCleanedList) > 0:
-            print("{}/{} structures are successfully cleaned".format(len(CleanedList), len(compounds)))   
+            print("{}/{} structures were successfully cleaned".format(len(CleanedList), len(compounds)))   
             if len(compounds_r1) > len(CleanedList):
-                print("{}/{} structures are unsuccessfully cleaned and need to be rechecked".format(len(compounds_r1) - len(CleanedList), len(compounds)))
+                print("{}/{} structure(s) was/were unsuccessfully cleaned and need to be rechecked".format(len(compounds_r1) - len(CleanedList), len(compounds)))
             if deSalt:
-                print("!!!!!Notice: Desalting compounds are not recommended without reasonable purpose!!!!!")
+                print("!!!!!Notice: Desalting compound(s) is not recommended without reasonable purpose!!!!!")
             if neutralize:
-                print("!!!!!Notice: Neutralizing charged structures are not recommended without reasonable purpose!!!!!")
+                print("!!!!!Notice: Neutralizing charged structure(s) is not recommended without reasonable purpose!!!!!")
         else:
-            print("{}/{} structures are successfully cleaned".format(len(CleanedList), len(compounds)))   
+            print("{}/{} structures were successfully cleaned".format(len(CleanedList), len(compounds)))   
             if deSalt:
-                print("!!!!!Notice: Desalting compounds are not recommended without reasonable purpose!!!!!")
+                print("!!!!!Notice: Desalting compound(s) is not recommended without reasonable purpose!!!!!")
             if neutralize:
-                print("!!!!!Notice: Neutralizing charged structures are not recommended without reasonable purpose!!!!!")
-        print("=======================================================")  
+                print("!!!!!Notice: Neutralizing charged structure(s) is not recommended without reasonable purpose!!!!!")
+        print("-------------------------------------------------------")  
         if len(UnCleanedList) > 0:
             if getUncleanedStruct == False:
                 print("set 'getUncleanedStruct=True' to get the list of all uncleaned structures. Neutralized charged structures will be included (if any) \n")  
@@ -302,7 +302,7 @@ def cleanComplete(compounds, getUncleanedStruct=False, deSalt=False, neutralize=
             _, DuplicatedCleanedIdxList = molDeduplicate(CleanedList, getDuplicates=True, getDuplicatesIdx=True, printlogs=False)
             if len(DeduplicatedCleanedList) == len(CleanedList):
                 if printlogs:
-                    print("No duplicate is found (in {} cleaned structures)".format(len(CleanedList)))
+                    print("No duplicate was found (in {} cleaned structures)".format(len(CleanedList)))
                 if getDuplicatedIdx:
                     df0 = pd.DataFrame(DuplicatedCleanedIdxList)
                     df0.columns = ['idx', 'matchedIdx']
@@ -332,7 +332,7 @@ def cleanComplete(compounds, getUncleanedStruct=False, deSalt=False, neutralize=
                 if printlogs:
                     print("=============================================================================")
                     print("There are {} unique structures filtered from {} initial cleaned structures".format(len(DeduplicatedCleanedList), len(CleanedList)))
-                    print("=============================================================================")
+                    print("-----------------------------------------------------------------------------")
                     print("To get detailed information, please follow steps below:")
                     print("(1) Rerun cleanComplete() with setting 'removeDuplicates=False' to get the list of all validated structures")
                     print("(2) Run ultils.molDeduplicate() with setting 'getDuplicates=True'to get the list of duplicated structures \n")
@@ -378,5 +378,3 @@ def cleanComplete(compounds, getUncleanedStruct=False, deSalt=False, neutralize=
                     df3.to_csv(filePath, index=False)
             else:
                 return df3            
-
-
