@@ -54,12 +54,12 @@ def normTautomers(compounds, getTautomers=False, getTautomersIdx=False, deTautom
             if Tautomer_count > 0:
                 if deTautomerize:
                     print("{}/{} structures are NOT tautomers".format(len(NonTautomersList)-Tautomer_count, len(compounds)))
-                    print("{}/{} structures are tautomers BUT were detautomerized".format(Tautomer_count, len(compounds)))
+                    print("{}/{} structure(s) is/are tautomer(s) BUT was/were detautomerized".format(Tautomer_count, len(compounds)))
                     print("=======================================================")
                     print("!!!!!Notice: Detautomerizing has been applied!!!!!")
                 else:
                     print("{}/{} structures are NOT tautomers".format(len(NonTautomersList), len(compounds)))
-                    print("{}/{} structures are tautomers BUT were NOT detautomerized".format(Tautomer_count, len(compounds)))
+                    print("{}/{} structure(s) is/are tautomer(s) BUT was/were NOT detautomerized".format(Tautomer_count, len(compounds)))
             else:
                 print("{}/{} structures are NOT tautomers".format(len(NonTautomersList), len(compounds)))   
         else:
@@ -67,17 +67,17 @@ def normTautomers(compounds, getTautomers=False, getTautomersIdx=False, deTautom
             if Tautomer_count > 0:
                 if deTautomerize:
                     print("{}/{} structures are NOT tautomers".format(len(NonTautomersList)-Tautomer_count, len(compounds)))
-                    print("{}/{} structures are tautomers BUT were detautomerized".format(Tautomer_count, len(compounds)))
+                    print("{}/{} structure(s) í/are tautomer(s) BUT was/were detautomerized".format(Tautomer_count, len(compounds)))
                     print("=======================================================")
                     print("!!!!!Notice: Detautomerizing has been applied!!!!!")
                 else:
                     print("{}/{} structures are NOT tautomers".format(len(NonTautomersList), len(compounds)))
-                    print("{}/{} structures are tautomers BUT were NOT detautomerized".format(Tautomer_count, len(compounds)))
+                    print("{}/{} structure(s) is/are tautomer(s) BUT was/were NOT detautomerized".format(Tautomer_count, len(compounds)))
             else:
                 print("{}/{} structures are NOT tautomers".format(len(NonTautomersList), len(compounds)))       
         print("=======================================================")
     if getTautomers:  
-        if getTautomers:
+        if getTautomersIdx:
             return TautomersList, TautomersIdxList
         else:
             return TautomersList
@@ -129,12 +129,12 @@ def normStereoisomers(compounds, getStereoisomers=False, getStereoisomersIdx=Fal
             if Stereoisomer_count > 0:
                 if deSterioisomerize:
                     print("{}/{} structures are NOT stereoisomers".format(len(NonStereoisomersList)-Stereoisomer_count, len(compounds)))
-                    print("{}/{} structures are stereoisomers BUT were destereoisomerized".format(Stereoisomer_count, len(compounds)))
+                    print("{}/{} structure(s) is/are stereoisomer(s) BUT was/were destereoisomerized".format(Stereoisomer_count, len(compounds)))
                     print("=======================================================")
                     print("!!!!!Notice: Destereoisomerization has been applied!!!!!")
                 else:
                     print("{}/{} structures are NOT stereoisomers".format(len(NonStereoisomersList), len(compounds)))
-                    print("{}/{} structures are stereoisomers BUT were NOT destereoisomerized".format(Stereoisomer_count, len(compounds)))
+                    print("{}/{} structure(s) is/are stereoisomer(s) BUT was/were NOT destereoisomerized".format(Stereoisomer_count, len(compounds)))
             else:
                 print("{}/{} structures are NOT stereoisomers".format(len(NonStereoisomersList), len(compounds)))                
         else:
@@ -142,12 +142,12 @@ def normStereoisomers(compounds, getStereoisomers=False, getStereoisomersIdx=Fal
             if Stereoisomer_count > 0:
                 if deSterioisomerize:
                     print("{}/{} structures are NOT stereoisomers".format(len(NonStereoisomersList)-Stereoisomer_count, len(compounds)))
-                    print("{}/{} structures are stereoisomers BUT were destereoisomerized".format(Stereoisomer_count, len(compounds)))
+                    print("{}/{} structure(s) is/are stereoisomer(s) BUT was/were destereoisomerized".format(Stereoisomer_count, len(compounds)))
                     print("=======================================================")
                     print("!!!!!Notice: Destereoisomerization has been applied!!!!!")
                 else:
                     print("{}/{} structures are NOT stereoisomers".format(len(NonStereoisomersList), len(compounds)))
-                    print("{}/{} structures are stereoisomers BUT were NOT destereoisomerized".format(Stereoisomer_count, len(compounds)))
+                    print("{}/{} structure(s) is/are stereoisomer(s) BUT was/were NOT destereoisomerized".format(Stereoisomer_count, len(compounds)))
             else:
                 print("{}/{} structures are NOT stereoisomers".format(len(NonStereoisomersList), len(compounds)))
         print("=======================================================")
@@ -209,19 +209,19 @@ def normalizeComplete(compounds, getUnnormalizedStruct=False, deTautomerize=True
         if Unverified_count > 0:
             print("=======================================================")
             print("Succeeded to verify {}/{} structures".format(len(compounds_r1), len(compounds)))
-            print("Failed to verify {} structures".format(Unverified_count))
+            print("Failed to verify {} structures \n".format(Unverified_count))
         else:
             print("=======================================================")
-            print("Succeeded to validate {}/{} structures".format(len(compounds_r1), len(compounds))) 
+            print("Succeeded to validate {}/{} structures \n".format(len(compounds_r1), len(compounds))) 
         if Stereoisomers_count > 0:
             if deSterioisomerize:
                 print("=======================================================")
                 print("{}/{} structures are NOT stereoisomers".format(len(compounds_r2)-Stereoisomers_count, len(compounds)))
-                print("{}/{} structures are stereoisomers but were destereoisomerized".format(Stereoisomers_count, len(compounds)))
+                print("{}/{} structure(s) is/are stereoisomer(s) BUT was/were destereoisomerized \n".format(Stereoisomers_count, len(compounds)))
             else:
                 print("=======================================================")
                 print("{}/{} structures are NOT stereoisomers".format(len(compounds_r2), len(compounds)))
-                print("{}/{} structures are stereoisomers but were NOT destereoisomerized".format(Stereoisomers_count, len(compounds)))
+                print("{}/{} structure(s) is/are stereoisomer(s) BUT was/were NOT destereoisomerized \n".format(Stereoisomers_count, len(compounds)))
         else:
             print("=======================================================")
             print("{}/{} structures are NOT stereoisomers".format(len(compounds_r2), len(compounds)))
@@ -230,15 +230,15 @@ def normalizeComplete(compounds, getUnnormalizedStruct=False, deTautomerize=True
                 print("=======================================================")
                 compounds_r3_ = normTautomers(compounds_r2, deTautomerize=True, printlogs=False)
                 print("{}/{} structures are NOT tautomers".format(len(compounds_r3_)-Tautomers_count, len(compounds)))
-                print("{}/{} structures are tautomers but were detautomerized".format(Tautomers_count, len(compounds)))
+                print("{}/{} structure(s) is/are tautomer(s) BUT was/were detautomerized \n".format(Tautomers_count, len(compounds)))
             else:
                 print("=======================================================")
                 compounds_r3_ = normTautomers(compounds_r2, deTautomerize=False, printlogs=False)
                 print("{}/{} structures are NOT tautomers".format(len(compounds_r3_), len(compounds)))
-                print("{}/{} structures are tautomers but were NOT detautomerized".format(Tautomers_count, len(compounds)))              
+                print("{}/{} structure(s) is/are tautomer(s) but was/were NOT detautomerized \n".format(Tautomers_count, len(compounds)))              
         else:
             print("=======================================================")
-            print("{}/{} structures are NOT tautomers".format(len(compounds_r2), len(compounds)))        
+            print("{}/{} structures are NOT tautomers \n".format(len(compounds_r2), len(compounds)))        
     #------------------------
     NormalizedList    = compounds_r3
     UnNormalizedList  = UnverifiedList + TautomersList + StereoisomersList
@@ -251,18 +251,18 @@ def normalizeComplete(compounds, getUnnormalizedStruct=False, deTautomerize=True
         print("=======================================================")
         print("SUMMARY:")
         if len(UnverifiedList) > 0:
-            print("{}/{} structures are successfully verfied".format(len(compounds_r1), len(compounds)))   
-            print("{}/{} structures are unsuccessfully verfied and need to be rechecked".format(len(UnverifiedList), len(compounds)))
+            print("{}/{} structures were successfully verfied".format(len(compounds_r1), len(compounds)))   
+            print("{}/{} structure(s) was/were unsuccessfully verfied and need to be rechecked".format(len(UnverifiedList), len(compounds)))
         else:
-            print("{}/{} structures are successfully verfied".format(len(compounds_r1), len(compounds)))    
+            print("{}/{} structure were successfully verfied".format(len(compounds_r1), len(compounds)))    
         if len(UnNormalizedList) > 0:
-            print("{}/{} structures are successfully normalized".format(len(NormalizedList), len(compounds)))
+            print("{}/{} structures were successfully normalized".format(len(NormalizedList), len(compounds)))
             if len(compounds_r1) > len(NormalizedList):    
-                print("{}/{} structures are unsuccessfully normalized and need to be rechecked".format(len(compounds_r1)-len(NormalizedList), len(compounds)))
+                print("{}/{} structure(s) was/were unsuccessfully normalized and need to be rechecked".format(len(compounds_r1)-len(NormalizedList), len(compounds)))
             print("=======================================================")
         else:
-            print("{}/{} structures are successfully normalized".format(len(NormalizedList), len(compounds)))   
-            print("=======================================================")
+            print("{}/{} structures were successfully normalized".format(len(NormalizedList), len(compounds)))   
+            print("-------------------------------------------------------")
         if len(UnNormalizedList) > 0:
             if getUnnormalizedStruct == False:
                 print("set 'getUnnormalizedStruct=True' to get the list of all unnormalized structures. \n")  
@@ -283,7 +283,7 @@ def normalizeComplete(compounds, getUnnormalizedStruct=False, deTautomerize=True
             _, DuplicatedNormalizedIdxList = molDeduplicate(NormalizedList, getDuplicates=True, getDuplicatesIdx=True, printlogs=False)
             if len(DeduplicatedNormalizedList) == len(NormalizedList):
                 if printlogs:
-                    print("No duplicate is found (in {} normalized structures)".format(len(NormalizedList)))
+                    print("No duplicate was found (in {} normalized structures)".format(len(NormalizedList)))
                 if getDuplicatedIdx:
                     df0 = pd.DataFrame(DuplicatedNormalizedIdxList)
                     df0.columns = ['idx', 'matchedIdx']
