@@ -47,14 +47,14 @@ def rmMixtures(compounds, getMixtures=False, getMixturesIdx=False, printlogs=Tru
             print("Use function 'ultils.molValidate()' and set 'getFailedStruct=True' to get the list of unverified structures")
             if len(MixtureList) > 0:
                 print("{}/{} structures are non-mixtures".format(len(UniqueList), len(compounds)))
-                print("{}/{} structures are mixtures and were removed".format(len(MixtureList), len(compounds)))   
+                print("{}/{} structure(s) is/are mixture(s) and was/were removed".format(len(MixtureList), len(compounds)))   
             else:
                 print("{}/{} structures are non-mixtures".format(len(UniqueList), len(compounds)))
         else:
             print("Succeeded to verify {}/{} structures".format(len(compounds), len(compounds)))
             if len(MixtureList) > 0:
                 print("{}/{} structures are non-mixtures".format(len(UniqueList), len(compounds)))
-                print("{}/{} structures are mixtures and were removed".format(len(MixtureList), len(compounds)))
+                print("{}/{} structure(s) is/are mixture(s) and was/were removed".format(len(MixtureList), len(compounds)))
             else:
                 print("{}/{} structures are non-mixtures".format(len(UniqueList), len(compounds)))
         print("=======================================================")
@@ -112,14 +112,14 @@ def rmInorganics(compounds, getInorganics=False, getInorganicsIdx=False, printlo
             print("Use function 'ultils.molValidate()' and set 'getFailedStruct=True' to get the list of unverified structures")
             if len(InorganicsList) > 0:
                 print("{}/{} structures are organics".format(len(OrganicsList), len(compounds)))
-                print("{}/{} structures are inorganics and were removed".format(len(InorganicsList), len(compounds)))
+                print("{}/{} structure(s) is/are inorganic(s) and was/were removed".format(len(InorganicsList), len(compounds)))
             else:
                 print("{}/{} structures are organics".format(len(OrganicsList), len(compounds)))
         else:
             print("Succeeded to verify {}/{} structures".format(len(compounds_), len(compounds)))
             if len(InorganicsList) > 0:
                 print("{}/{} structures are organics".format(len(OrganicsList), len(compounds)))
-                print("{}/{} structures are inorganics and were removed".format(len(InorganicsList), len(compounds)))
+                print("{}/{} structure(s) is/are inorganic(s) and was/were removed".format(len(InorganicsList), len(compounds)))
             else:
                 print("{}/{} structures are organics".format(len(OrganicsList), len(compounds)))
         print("=======================================================")
@@ -172,14 +172,14 @@ def rmOrganometallics(compounds, getOrganometallics=False, getOrganometallicsIdx
             print("Use function 'ultils.molValidate()' and set 'getFailedStruct=True' to get the list of unverified structures")
             if len(OrganometallicsList) > 0:
                 print("{}/{} structures are NOT organometallics".format(len(OrganicsList), len(compounds)))
-                print("{}/{} structures are organometallics and were removed".format(len(OrganometallicsList), len(compounds)))
+                print("{}/{} structure(s) is/are organometallic(s) and was/were removed".format(len(OrganometallicsList), len(compounds)))
             else:
                 print("{}/{} structures are NOT organometallics".format(len(OrganicsList), len(compounds)))
         else:
             print("Succeeded to verify {}/{} structures".format(len(compounds_), len(compounds)))
             if len(OrganometallicsList) > 0:
                 print("{}/{} structures are NOT organometallics".format(len(OrganicsList), len(compounds)))
-                print("{}/{} structures are organometallics and were removed".format(len(OrganometallicsList), len(compounds)))
+                print("{}/{} structure(s) is/are organometallic(s) and was/were removed".format(len(OrganometallicsList), len(compounds)))
             else:
                 print("{}/{} structures are NOT organometallics".format(len(OrganicsList), len(compounds)))
         print("=======================================================")
@@ -223,15 +223,15 @@ def validateComplete(compounds, getInvalidStruct=False, removeDuplicates=False, 
     UnverifiedList, UnverifiedIdxList = molStructVerify(compounds, getFailedStruct=True, getFailedStructIdx=True, printlogs=False)
     Unverified_count = len(UnverifiedList)
     #------------------------
-    compounds_r2     = rmMixtures(compounds_r1, printlogs=False)
+    compounds_r2     = rmMixtures(compounds_r1, printlogs=False) #test
     MixturesList, MixturesIdxList = rmMixtures(compounds_r1, getMixtures=True, getMixturesIdx=True, printlogs=False)
     Mixtures_count   = len(MixturesList)
     #------------------------
-    compounds_r3     = rmInorganics(compounds_r1, printlogs=False)
+    compounds_r3     = rmInorganics(compounds_r1, printlogs=False) #test
     InorganicsList, InorganicsIdxList   = rmInorganics(compounds_r1, getInorganics=True, getInorganicsIdx=True, printlogs=False)
     Inorganics_count = len(InorganicsList)
     #------------------------
-    compounds_r4          = rmOrganometallics(compounds_r1, printlogs=False)
+    compounds_r4          = rmOrganometallics(compounds_r1, printlogs=False) #test
     OrganometallicsList, OrganometallicsIdxList = rmOrganometallics(compounds_r1, getOrganometallics=True, getOrganometallicsIdx=True, printlogs=False)
     Organometallics_count = len(OrganometallicsList)
     #------------------------
@@ -239,44 +239,44 @@ def validateComplete(compounds, getInvalidStruct=False, removeDuplicates=False, 
         if Unverified_count > 0:
             print("=======================================================")
             print("Succeeded to verify {}/{} structures".format(len(compounds_r1), len(compounds)))
-            print("Failed to verify {}/{}  structures and they were removed".format(Unverified_count), len(compounds))
+            print("Failed to verify {}/{}  structure(s) and it/they was/were removed \n".format(Unverified_count), len(compounds))
         else:
             print("=======================================================")
-            print("Succeeded to validate {}/{} structures".format(len(compounds_r1), len(compounds)))   
+            print("Succeeded to validate {}/{} structures \n".format(len(compounds_r1), len(compounds)))   
         if Mixtures_count > 0:
             print("=======================================================")
             print("{}/{} structures are non-mixtures".format(len(compounds_r2), len(compounds)))
-            print("{}/{} structures are mixtures and were removed".format(Mixtures_count, len(compounds)))
+            print("{}/{} structure(s) is/are mixture(s) and was/were removed \n".format(Mixtures_count, len(compounds)))
         else:
             print("=======================================================")
-            print("{}/{} structures are non-mixtures".format(len(compounds_r2), len(compounds)))
+            print("{}/{} structures are non-mixtures \n".format(len(compounds_r2), len(compounds)))
         if Inorganics_count > 0:
             print("=======================================================")
             print("{}/{} structures are organics".format(len(compounds_r3), len(compounds)))
-            print("{}/{} structures are inorganics and were removed".format(Inorganics_count, len(compounds)))
+            print("{}/{} structure(s) í/are inorganic(s) and was/were removed \n".format(Inorganics_count, len(compounds)))
         else:
             print("=======================================================")
-            print("{}/{} structures are organics".format(len(compounds_r3), len(compounds)))
+            print("{}/{} structures are organics \n".format(len(compounds_r3), len(compounds)))
         if Organometallics_count > 0:
             print("=======================================================")
             print("{}/{} structures are NOT organometallics".format(len(compounds_r4), len(compounds)))
-            print("{}/{} structures are organometallics and were removed".format(Organometallics_count, len(compounds)))
+            print("{}/{} structure(s) is/are organometallic(s) and was/were removed \n".format(Organometallics_count, len(compounds)))
         else:
             print("=======================================================")
-            print("{}/{} structures are NOT organometallics".format(len(compounds_r4), len(compounds)))
+            print("{}/{} structures are NOT organometallics \n".format(len(compounds_r4), len(compounds)))
     #------------------------
     ValidatedList    = intersectionList(compounds_r1, intersectionList(compounds_r2, intersectionList(compounds_r3, compounds_r4)))
     UnvalidatedList  = UnverifiedList + MixturesList + InorganicsList + OrganometallicsList
     UnvalidatedLabel = len(UnverifiedList)*["UnverifiedStruct"] + len(MixturesList)*["Mixture"] + len(InorganicsList)*["Inorganic"] + len(OrganometallicsList)*["Organometallic"]
-    FunctionLabel    = len(UnverifiedList)*["molStructVerify()"] + len(MixturesList)*["rmInorganics()"] + len(InorganicsList)*["rmInorganics()"] + len(OrganometallicsList)*["rmOrganometallics()"]
+    FunctionLabel    = len(UnverifiedList)*["molStructVerify()"] + len(MixturesList)*["rmMixtures()"] + len(InorganicsList)*["rmInorganics()"] + len(OrganometallicsList)*["rmOrganometallics()"]
     IdxLabel         = UnverifiedIdxList + MixturesIdxList + InorganicsIdxList + OrganometallicsIdxList
     df1 = pd.DataFrame(zip(UnvalidatedList, UnvalidatedLabel, FunctionLabel, IdxLabel), columns=['SMILES', 'errorTag', 'fromFunction', 'idx'])
     if printlogs:
         print("=======================================================")
         print("SUMMARY:")
-        print("{}/{} structures are successfully validated".format(len(ValidatedList), len(compounds)))   
-        print("{}/{} structures are unsuccessfully validated and need to be rechecked".format(len(UnvalidatedList), len(compounds)))
-        print("=======================================================")
+        print("{}/{} structures were successfully validated".format(len(ValidatedList), len(compounds)))   
+        print("{}/{} structure(s) were/was unsuccessfully validated and need to be rechecked".format(len(UnvalidatedList), len(compounds)))
+        print("-----------------------------------------------------------------------------")
         if len(UnvalidatedList) > 0:
             if getInvalidStruct == False:
                 print("set 'getInvalidStruct=True' to get the list of all unvalidated structures \n")  
@@ -294,12 +294,12 @@ def validateComplete(compounds, getInvalidStruct=False, removeDuplicates=False, 
     else:
         if removeDuplicates:
             DeduplicatedValidatedList = molDeduplicate(ValidatedList, printlogs=False)
-            _, DuplicatedValidatedIdxList = molDeduplicate(ValidatedList, getDuplicates=True, getDuplicatesIdx=True, printlogs=False)
+            _, DuplicatedValidatedIdxList = molDeduplicate(ValidatedList, getDuplicates=True, getDuplicatesIdx=True, printlogs=False) #test
             if len(DeduplicatedValidatedList) == len(ValidatedList):
                 if printlogs:
                     print("=======================================================")
-                    print("No duplicate is found (in {} verified structures)".format(len(ValidatedList)))
-                    print("=======================================================")
+                    print("No duplicate was found (in {} verified structures)".format(len(ValidatedList)))
+                    print("-------------------------------------------------------")
                 if getDuplicatedIdx:
                     df0 = pd.DataFrame(DuplicatedValidatedIdxList)
                     df0.columns = ['idx', 'matchedIdx']
@@ -329,7 +329,7 @@ def validateComplete(compounds, getInvalidStruct=False, removeDuplicates=False, 
                 if printlogs:
                     print("=============================================================================")
                     print("There are {} unique structures filtered from {} initial validated structures".format(len(DeduplicatedValidatedList), len(ValidatedList)))
-                    print("=============================================================================")
+                    print("-----------------------------------------------------------------------------")
                     print("To get detailed information, please follow steps below:")
                     print("(1) Rerun validateComplete() with setting 'removeDuplicates=False' to get the list of all validated structures")
                     print("(2) Run ultils.molDeduplicate() with setting 'getDuplicates=True'to get the list of duplicated structures \n")
@@ -374,7 +374,3 @@ def validateComplete(compounds, getInvalidStruct=False, removeDuplicates=False, 
                     df3.to_csv(filePath, index=False)
             else:
                 return df3            
-
-        
-            
-            
