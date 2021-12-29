@@ -30,8 +30,8 @@ def refineComplete(compounds, getUnrefinedStruct=None, deSalt=False, neutralize=
         compounds = [compounds]
     #------------------------
     #Validation
-    DupValidated_compounds    = validateComplete(compounds, removeDuplicates=False, printlogs=False)
     DedupValidated_compounds  = validateComplete(compounds, removeDuplicates=True,  printlogs=False)
+    DupValidated_compounds    = validateComplete(compounds, removeDuplicates=False, printlogs=False)
     unvalidated_compounds     = validateComplete(compounds, getInvalidStruct=True,  printlogs=False)
     DuplicatedUnvalidatedIdx  = validateComplete(compounds, removeDuplicates=True,  getDuplicatedIdx=True, printlogs=False)
     if printlogs:
@@ -39,15 +39,15 @@ def refineComplete(compounds, getUnrefinedStruct=None, deSalt=False, neutralize=
         print("VALIDATION")
         if len(DupValidated_compounds) == len(compounds):
             print("-----------------------------------------------------------------------------")
-            print("{}/{} structures are successfully validated".format(len(DupValidated_compounds), len(compounds)))   
+            print("{}/{} structures were successfully validated".format(len(DupValidated_compounds), len(compounds)))   
         else:
             print("-----------------------------------------------------------------------------")
-            print("{}/{} structures are successfully validated".format(len(DupValidated_compounds), len(compounds)))   
-            print("{}/{} structures are unsuccessfully validated and need to be rechecked".format(len(unvalidated_compounds), len(compounds)))
+            print("{}/{} structures were successfully validated".format(len(DupValidated_compounds), len(compounds)))   
+            print("{}/{} structure(s) was/were unsuccessfully validated and need to be rechecked".format(len(unvalidated_compounds), len(compounds)))
         if removeDuplicates:
             if len(DedupValidated_compounds) == len(DupValidated_compounds):
                 print("-----------------------------------------------------------------------------")
-                print("No duplicate is found (in {} validated structures)".format(len(DupValidated_compounds)))
+                print("No duplicate was found (in {} validated structures)".format(len(DupValidated_compounds)))
                 print("=============================================================================")
             else:
                 print("-----------------------------------------------------------------------------")
@@ -56,7 +56,7 @@ def refineComplete(compounds, getUnrefinedStruct=None, deSalt=False, neutralize=
         else:
             if len(DedupValidated_compounds) == len(DupValidated_compounds):
                 print("-----------------------------------------------------------------------------")
-                print("No duplicate is found (in {} validated structures)".format(len(DupValidated_compounds)))
+                print("No duplicate was found (in {} validated structures)".format(len(DupValidated_compounds)))
                 print("=============================================================================")
             else:
                 print("-----------------------------------------------------------------------------")
@@ -73,14 +73,14 @@ def refineComplete(compounds, getUnrefinedStruct=None, deSalt=False, neutralize=
         if removeDuplicates:
             if len(DedupCleaned_compounds) == len(DedupValidated_compounds):
                 print("-----------------------------------------------------------------------------")
-                print("{}/{} structures are successfully cleaned".format(len(DedupCleaned_compounds), len(DedupValidated_compounds))) 
+                print("{}/{} structures were successfully cleaned".format(len(DedupCleaned_compounds), len(DedupValidated_compounds))) 
             else:
                 print("-----------------------------------------------------------------------------")
-                print("{}/{} structures are successfully cleaned".format(len(DedupCleaned_compounds), len(DedupValidated_compounds)))   
-                print("{}/{} structures are unsuccessfully cleaned and need to be rechecked".format(len(DedupValidated_compounds)-len(DedupCleaned_compounds), len(DedupValidated_compounds)))  
+                print("{}/{} structures were successfully cleaned".format(len(DedupCleaned_compounds), len(DedupValidated_compounds)))   
+                print("{}/{} structure(s) was/were unsuccessfully cleaned and need to be rechecked".format(len(DedupValidated_compounds)-len(DedupCleaned_compounds), len(DedupValidated_compounds)))  
             if len(DedupCleaned_compounds) == len(DupCleaned_compounds):
                 print("-----------------------------------------------------------------------------")
-                print("No duplicate is found (in {} cleaned structures)".format(len(DupCleaned_compounds)))
+                print("No duplicate was found (in {} cleaned structures)".format(len(DupCleaned_compounds)))
                 print("=============================================================================")
             else:
                 print("-----------------------------------------------------------------------------")
@@ -89,21 +89,21 @@ def refineComplete(compounds, getUnrefinedStruct=None, deSalt=False, neutralize=
         else:
             if len(DupCleaned_compounds) == len(DupValidated_compounds):
                 print("-----------------------------------------------------------------------------")
-                print("{}/{} structures are successfully cleaned".format(len(DupCleaned_compounds), len(DupValidated_compounds))) 
+                print("{}/{} structures were successfully cleaned".format(len(DupCleaned_compounds), len(DupValidated_compounds))) 
             else:
                 print("-----------------------------------------------------------------------------")
-                print("{}/{} structures are successfully cleaned".format(len(DupCleaned_compounds), len(DupValidated_compounds)))   
-                print("{}/{} structures are unsuccessfully cleaned and need to be rechecked".format(len(DupValidated_compounds)-len(DupCleaned_compounds), len(DupValidated_compounds)))  
+                print("{}/{} structures were successfully cleaned".format(len(DupCleaned_compounds), len(DupValidated_compounds)))   
+                print("{}/{} structure(s) was/were unsuccessfully cleaned and need to be rechecked".format(len(DupValidated_compounds)-len(DupCleaned_compounds), len(DupValidated_compounds)))  
             if len(DedupCleaned_compounds) == len(DupCleaned_compounds):
                 print("-----------------------------------------------------------------------------")
-                print("No duplicate is found (in {} cleaned structures)".format(len(DupCleaned_compounds)))
+                print("No duplicate was found (in {} cleaned structures)".format(len(DupCleaned_compounds)))
                 print("=============================================================================")
             else:
                 print("-----------------------------------------------------------------------------")
                 if DuplicatedUncleanedIdx['idx'][0] != 'na':
                     print ("{}/{} cleaned structures have at least one duplicates".format(len(DuplicatedUncleanedIdx), len(DupCleaned_compounds)))
                 else:
-                    print("No duplicate is found (in {} cleaned structures)".format(len(DupCleaned_compounds)))
+                    print("No duplicate was found (in {} cleaned structures)".format(len(DupCleaned_compounds)))
                 print("=============================================================================")
     #------------------------
     #Normalization
@@ -116,14 +116,14 @@ def refineComplete(compounds, getUnrefinedStruct=None, deSalt=False, neutralize=
         if removeDuplicates:
             if len(DedupNormalized_compounds) == len(DedupCleaned_compounds):
                 print("-----------------------------------------------------------------------------")
-                print("{}/{} structures are successfully cleaned".format(len(DedupNormalized_compounds), len(DedupCleaned_compounds))) 
+                print("{}/{} structures were successfully normalized".format(len(DedupNormalized_compounds), len(DedupCleaned_compounds))) 
             else:
                 print("-----------------------------------------------------------------------------")
-                print("{}/{} structures are successfully cleaned".format(len(DedupNormalized_compounds), len(DedupCleaned_compounds)))   
-                print("{}/{} structures are unsuccessfully cleaned and need to be rechecked".format(len(DedupCleaned_compounds)-len(DedupNormalized_compounds), len(DedupCleaned_compounds)))  
+                print("{}/{} structures were successfully normalized".format(len(DedupNormalized_compounds), len(DedupCleaned_compounds)))   
+                print("{}/{} structure(s) were unsuccessfully normalized and need to be rechecked".format(len(DedupCleaned_compounds)-len(DedupNormalized_compounds), len(DedupCleaned_compounds)))  
             if len(DedupNormalized_compounds) == len(DupNormalized_compounds):
                 print("-----------------------------------------------------------------------------")
-                print("No duplicate is found (in {} normalized structures)".format(len(DupNormalized_compounds)))
+                print("No duplicate was found (in {} normalized structures)".format(len(DupNormalized_compounds)))
                 print("=============================================================================")
             else:
                 print("-----------------------------------------------------------------------------")
@@ -132,41 +132,41 @@ def refineComplete(compounds, getUnrefinedStruct=None, deSalt=False, neutralize=
         else:
             if len(DupNormalized_compounds) == len(DupCleaned_compounds):
                 print("-----------------------------------------------------------------------------")
-                print("{}/{} structures are successfully cleaned".format(len(DupNormalized_compounds), len(DupCleaned_compounds))) 
+                print("{}/{} structures were successfully normalized".format(len(DupNormalized_compounds), len(DupCleaned_compounds))) 
             else:
                 print("-----------------------------------------------------------------------------")
-                print("{}/{} structures are successfully cleaned".format(len(DupNormalized_compounds), len(DupCleaned_compounds)))   
-                print("{}/{} structures are unsuccessfully cleaned and need to be rechecked".format(len(DupCleaned_compounds)-len(DupNormalized_compounds), len(DupCleaned_compounds)))  
+                print("{}/{} structures were successfully normalized".format(len(DupNormalized_compounds), len(DupCleaned_compounds)))   
+                print("{}/{} structure(s) was/were unsuccessfully normalized and need to be rechecked".format(len(DupCleaned_compounds)-len(DupNormalized_compounds), len(DupCleaned_compounds)))  
             if len(DedupNormalized_compounds) == len(DupNormalized_compounds):
                 print("-----------------------------------------------------------------------------")
-                print("No duplicate is found (in {} normalized structures)".format(len(DupNormalized_compounds)))
+                print("No duplicate was found (in {} normalized structures)".format(len(DupNormalized_compounds)))
                 print("=============================================================================")
             else:
                 print("-----------------------------------------------------------------------------")
                 if DuplicatedUnNormalizedIdx['idx'][0] != 'na':
                     print ("{}/{} normalized structures have at least one duplicates".format(len(DuplicatedUnNormalizedIdx), len(DupNormalized_compounds)))
                 else:
-                    print("No duplicate is found (in {} normalized structures)".format(len(DupNormalized_compounds)))
+                    print("No duplicate was found (in {} normalized structures)".format(len(DupNormalized_compounds)))
                 print("=============================================================================")
     #------------------------
     DedupRefined_compounds    = DedupNormalized_compounds
     DupRefined_compounds      = DupNormalized_compounds
-    unrefined_compounds       = pd.concat([unvalidated_compounds, uncleaned_compounds,unnormalized_compounds])
-    DuplicatedUnrefinedIdx_df = pd.concat([DuplicatedUnvalidatedIdx, DuplicatedUncleanedIdx, DuplicatedUnNormalizedIdx])
+    unrefined_compounds       = pd.concat([unvalidated_compounds, uncleaned_compounds,unnormalized_compounds], ignore_index=True)
+    DuplicatedUnrefinedIdx_df = pd.concat([DuplicatedUnvalidatedIdx, DuplicatedUncleanedIdx, DuplicatedUnNormalizedIdx], ignore_index=True)
     if printlogs:
         print("REFINEMENT SUMMARY")
         if removeDuplicates:
-            compounds_ = list(set(compounds))
+            compounds_ = molDeduplicate(compounds, printlogs=False)
             if len(DedupNormalized_compounds) == len(compounds_):
                 print("-----------------------------------------------------------------------------")
-                print("{}/{} deduplicated structures are successfully refined".format(len(DedupNormalized_compounds), len(compounds_))) 
+                print("{}/{} deduplicated structures were successfully refined".format(len(DedupNormalized_compounds), len(compounds_))) 
             else:
                 print("-----------------------------------------------------------------------------")
-                print("{}/{} deduplicated structures are successfully refined".format(len(DedupNormalized_compounds), len(compounds_)))   
-                print("{}/{} deduplicated structures are unsuccessfully refined and need to be rechecked".format(len(compounds_)-len(DedupNormalized_compounds), len(compounds_)))  
+                print("{}/{} deduplicated structures were successfully refined".format(len(DedupNormalized_compounds), len(compounds_)))   
+                print("{}/{} deduplicated structure(s) was/were unsuccessfully refined and need to be rechecked".format(len(compounds_)-len(DedupNormalized_compounds), len(compounds_)))  
             if len(DedupRefined_compounds) == len(DupRefined_compounds):
                 print("-----------------------------------------------------------------------------")
-                print("No duplicate is found (in {} refined structures)".format(len(DedupRefined_compounds)))
+                print("No duplicate was found (in {} refined structures)".format(len(DedupRefined_compounds)))
                 print("=============================================================================")
             else:
                 print("-----------------------------------------------------------------------------")
@@ -175,14 +175,14 @@ def refineComplete(compounds, getUnrefinedStruct=None, deSalt=False, neutralize=
         else:
             if len(DupNormalized_compounds) == len(compounds):
                 print("-----------------------------------------------------------------------------")
-                print("{}/{} structures are successfully refined (duplicates existing)".format(len(DupNormalized_compounds), len(compounds))) 
+                print("{}/{} structures were successfully refined (duplicates existing)".format(len(DupNormalized_compounds), len(compounds))) 
             else:
                 print("-----------------------------------------------------------------------------")
-                print("{}/{} structures are successfully refined (duplicates existing)".format(len(DupNormalized_compounds), len(compounds)))   
-                print("{}/{} structures are unsuccessfully refined and need to be rechecked (duplicates existing)".format(len(compounds)-len(DupNormalized_compounds), len(compounds)))  
+                print("{}/{} structures were successfully refined (duplicates existing)".format(len(DupNormalized_compounds), len(compounds)))   
+                print("{}/{} structure(s) was/were unsuccessfully refined and need to be rechecked (duplicates existing)".format(len(compounds)-len(DupNormalized_compounds), len(compounds)))  
             if len(DedupNormalized_compounds) == len(DupNormalized_compounds):
                 print("-----------------------------------------------------------------------------")
-                print("No duplicate is found (in {} refined structures)".format(len(DedupRefined_compounds)))
+                print("No duplicate was found (in {} refined structures)".format(len(DedupRefined_compounds)))
                 print("=============================================================================")
             else:
                 print("-----------------------------------------------------------------------------")
@@ -234,7 +234,4 @@ def refineComplete(compounds, getUnrefinedStruct=None, deSalt=False, neutralize=
                     os.makedirs(outputPath)
                     df3.to_csv(filePath, index=False)
             else:
-                return df3            
-
-                
-      
+                return df3
