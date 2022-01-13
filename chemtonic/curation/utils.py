@@ -123,9 +123,12 @@ def neutralize_atoms(mol):
             atom = mol.GetAtomWithIdx(at_idx)
             chg = atom.GetFormalCharge()
             hcount = atom.GetTotalNumHs()
-            atom.SetFormalCharge(0)
-            atom.SetNumExplicitHs(hcount - chg)
-            atom.UpdatePropertyCache()
+            if hcount != 0:
+                atom.SetFormalCharge(0)
+                atom.SetNumExplicitHs(hcount - chg)
+                atom.UpdatePropertyCache()
+            else:
+                atom.UpdatePropertyCache()
     #------------------------
     return mol
 
