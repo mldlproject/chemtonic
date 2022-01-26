@@ -7,7 +7,17 @@ import os
 
 #==========================================================        
 # Complete refinement
-def refineComplete(compounds, getUnrefinedStruct=None, deSalt=False, neutralize=False, deTautomerize=True, deSterioisomerize=True, removeDuplicates=True, getDuplicatedIdx=False, exportCSV=False, outputPath=None, printlogs=True):
+def refineComplete(compounds, 
+                   getUnrefinedStruct=False, 
+                   deSalt=False, 
+                   neutralize=False, 
+                   deTautomerize=True, 
+                   deSterioisomerize=True, 
+                   removeDuplicates=True, 
+                   getDuplicatedIdx=False, 
+                   exportCSV=False, 
+                   outputPath=None, 
+                   printlogs=True):
     #------------------------
     if getUnrefinedStruct:
         if removeDuplicates:
@@ -22,7 +32,11 @@ def refineComplete(compounds, getUnrefinedStruct=None, deSalt=False, neutralize=
     if exportCSV:
         if outputPath == None:
             print("!!!ERROR 'exportCSV=True' needs 'outputPath=<Directory>' to be filled !!!")
-            return None  
+            return None 
+    if outputPath:
+        if exportCSV == False:
+            print("!!!ERROR 'outputPath=<Directory>' needs to set 'exportCSV=True' !!!")
+            return None 
     #------------------------
     if isinstance(compounds, pd.core.series.Series):
         compounds = compounds.tolist()
@@ -234,4 +248,7 @@ def refineComplete(compounds, getUnrefinedStruct=None, deSalt=False, neutralize=
                     os.makedirs(outputPath)
                     df3.to_csv(filePath, index=False)
             else:
-                return df3
+                return df3            
+
+                
+      

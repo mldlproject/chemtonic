@@ -5,7 +5,10 @@ import os
 
 #==========================================================
 # remove SMILES of mixtures
-def rmMixtures(compounds, getMixtures=False, getMixturesIdx=False, printlogs=True):
+def rmMixtures(compounds, 
+               getMixtures=False, 
+               getMixturesIdx=False, 
+               printlogs=True):
     #------------------------
     if getMixturesIdx:
         if getMixtures == False:
@@ -68,7 +71,10 @@ def rmMixtures(compounds, getMixtures=False, getMixturesIdx=False, printlogs=Tru
         
 #==========================================================
 # remove SMILES of inorganics
-def rmInorganics(compounds, getInorganics=False, getInorganicsIdx=False, printlogs=True):
+def rmInorganics(compounds, 
+                 getInorganics=False, 
+                 getInorganicsIdx=False, 
+                 printlogs=True):
     #------------------------
     if getInorganicsIdx:
         if getInorganics == False:
@@ -133,7 +139,10 @@ def rmInorganics(compounds, getInorganics=False, getInorganicsIdx=False, printlo
 
 #==========================================================
 # remove SMILES of organometallics
-def rmOrganometallics(compounds, getOrganometallics=False, getOrganometallicsIdx=False, printlogs=True):
+def rmOrganometallics(compounds, 
+                      getOrganometallics=False, 
+                      getOrganometallicsIdx=False, 
+                      printlogs=True):
     #------------------------
     if getOrganometallicsIdx:
         if getOrganometallics == False:
@@ -193,7 +202,13 @@ def rmOrganometallics(compounds, getOrganometallics=False, getOrganometallicsIdx
 
 #==========================================================
 # Complete validation
-def validateComplete(compounds, getInvalidStruct=False, removeDuplicates=False, getDuplicatedIdx=False, exportCSV=False, outputPath=None, printlogs=True):
+def validateComplete(compounds, 
+                     getInvalidStruct=False, 
+                     removeDuplicates=False, 
+                     getDuplicatedIdx=False, 
+                     exportCSV=False, 
+                     outputPath=None, 
+                     printlogs=True):
     #------------------------
     if getInvalidStruct:
         if removeDuplicates:
@@ -209,6 +224,10 @@ def validateComplete(compounds, getInvalidStruct=False, removeDuplicates=False, 
         if outputPath == None:
             print("!!!ERROR 'exportCSV=True' needs 'outputPath=<Directory>' to be filled !!!")
             return None
+    if outputPath:
+        if exportCSV == False:
+            print("!!!ERROR 'outputPath=<Directory>' needs to set 'exportCSV=True' !!!")
+            return None 
     #------------------------
     if isinstance(compounds, pd.core.series.Series):
         compounds = compounds.tolist()
@@ -374,3 +393,7 @@ def validateComplete(compounds, getInvalidStruct=False, removeDuplicates=False, 
                     df3.to_csv(filePath, index=False)
             else:
                 return df3            
+
+        
+            
+            

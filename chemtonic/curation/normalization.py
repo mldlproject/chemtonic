@@ -1,13 +1,98 @@
 from rdkit import Chem
 from .utils import *
 from rdkit.Chem.MolStandardize import rdMolStandardize
-from rdkit.Chem.EnumerateStereoisomers import EnumerateStereoisomers, StereoEnumerationOptions
 import os
 import pandas as pd
 
 #==========================================================
+# process SMILES of chemotypes
+def normChemotypes(compounds, 
+                   getChemotypes=False, 
+                   getChemotypesIdx=False, 
+                   normalizeChemotypes=False, 
+                   printlogs=True):
+    #------------------------
+    if getChemotypesIdx:
+        if getChemotypes == False:
+            print("!!!ERROR: 'getChemotypesIdx=True' argument goes with 'getChemotypes=True'!!!")
+            return None
+    #------------------------
+    if isinstance(compounds, pd.core.series.Series):
+        compounds = compounds.tolist()
+    if isinstance(compounds, pd.core.frame.DataFrame):
+        compounds = compounds.iloc[:,0].tolist()
+    if isinstance(compounds, str):
+        compounds = [compounds]
+    if isinstance(compounds, list):
+        compounds = compounds
+    #------------------------
+    compounds_ = molStructVerify(compounds, printlogs=False)
+    Unverified_count = len(molStructVerify(compounds, getFailedStruct=True, printlogs=False))
+    NonChemotypesList, ChemotypesList, ChemotypesIdxList = [], [], []
+    Chemotype_count  = 0
+    idx = 0
+    for compound in compounds_:
+        Premol = Chem.MolFromSmiles(compound)
+        canonicalized_mol = rdMolStandardize.Normalize(Premol)
+        canonicalized_SMILES = Chem.MolToSmiles(canonicalized_mol)
+        if canonicalized_SMILES == compound:
+            NonChemotypesList.append(canonicalized_SMILES)
+        else:
+            Chemotype_count  +=1
+            if normalizeChemotypes:
+                NonChemotypesList.append(canonicalized_SMILES)
+                ChemotypesList.append(compound)
+                ChemotypesIdxList.append(idx)
+            else:
+                ChemotypesList.append(compound)
+                ChemotypesIdxList.append(idx)
+        idx += 1
+    if printlogs:
+        print("=======================================================")
+        if Unverified_count > 0:
+            print("Succeeded to verify {}/{} structures".format(len(compounds_), len(compounds)))
+            print("Failed to verify {}/{} structures".format(Unverified_count, len(compounds)))
+            print("Use function 'utils.molValidate' and set 'getFailedStruct=True' to get the list of unverified structures")
+            if Chemotype_count  > 0:
+                if normalizeChemotypes:
+                    print("{}/{} structures are NOT chemotypes".format(len(NonChemotypesList)-Chemotype_count, len(compounds)))
+                    print("{}/{} structure(s) is/are chemotype(s) BUT was/were normalized".format(Chemotype_count, len(compounds)))
+                    print("=======================================================")
+                    print("!!!!!Notice: Chemotype normalization has been applied!!!!!")
+                else:
+                    print("{}/{} structures are NOT chemotypes".format(len(NonChemotypesList), len(compounds)))
+                    print("{}/{} structure(s) is/are chemotype(s) BUT was/were NOT normalized".format(Chemotype_count, len(compounds)))
+            else:
+                print("{}/{} structures are NOT chemotypes".format(len(NonChemotypesList), len(compounds)))   
+        else:
+            print("Succeeded to verify {}/{} structures".format(len(compounds_), len(compounds)))
+            if Chemotype_count  > 0:
+                if normalizeChemotypes:
+                    print("{}/{} structures are NOT chemotypes".format(len(NonChemotypesList)-Chemotype_count, len(compounds)))
+                    print("{}/{} structure(s) is/are chemotype(s) BUT was/were normalized".format(Chemotype_count, len(compounds)))
+                    print("=======================================================")
+                    print("!!!!!Notice: Chemotype normalization has been applied!!!!!")
+                else:
+                    print("{}/{} structures are NOT chemotypes".format(len(NonChemotypesList), len(compounds)))
+                    print("{}/{} structure(s) is/are chemotype(s) BUT was/were NOT normalized".format(Chemotype_count, len(compounds)))
+            else:
+                print("{}/{} structures are NOT chemotypes".format(len(NonChemotypesList), len(compounds)))       
+        print("=======================================================")
+    if getChemotypes:  
+        if getChemotypesIdx:
+            return ChemotypesList, ChemotypesIdxList
+        else:
+            return ChemotypesList
+    else:
+        return NonChemotypesList   
+    
+#==========================================================
 # process SMILES of tautomers
-def normTautomers(compounds, getTautomers=False, getTautomersIdx=False, deTautomerize=False, printlogs=True):
+def normTautomers(compounds, 
+                  getTautomers=False, 
+                  getTautomersIdx=False, 
+                  deTautomerize=False, 
+                  printlogs=True):
     #------------------------
     if getTautomersIdx:
         if getTautomers == False:
@@ -86,7 +171,11 @@ def normTautomers(compounds, getTautomers=False, getTautomersIdx=False, deTautom
 
 #==========================================================
 # process SMILES of stereoisomers
-def normStereoisomers(compounds, getStereoisomers=False, getStereoisomersIdx=False, deSterioisomerize=False, printlogs=True):
+def normStereoisomers(compounds, 
+                      getStereoisomers=False, 
+                      getStereoisomersIdx=False, 
+                      deSterioisomerize=False, 
+                      printlogs=True):
     #------------------------
     if getStereoisomersIdx:
         if getStereoisomers == False:
@@ -161,7 +250,16 @@ def normStereoisomers(compounds, getStereoisomers=False, getStereoisomersIdx=Fal
 
 #==========================================================         
 # Complete normalization
-def normalizeComplete(compounds, getUnnormalizedStruct=False, deTautomerize=True, deSterioisomerize=True, removeDuplicates=False, getDuplicatedIdx=False, exportCSV=False, outputPath=None, printlogs=True):
+def normalizeComplete(compounds, 
+                      getUnnormalizedStruct=False, 
+                      normalizeChemotypes=True, 
+                      deTautomerize=True, 
+                      deSterioisomerize=True, 
+                      removeDuplicates=False, 
+                      getDuplicatedIdx=False, 
+                      exportCSV=False, 
+                      outputPath=None, 
+                      printlogs=True):
     #------------------------
     if getUnnormalizedStruct:
         if removeDuplicates:
@@ -177,6 +275,10 @@ def normalizeComplete(compounds, getUnnormalizedStruct=False, deTautomerize=True
         if outputPath == None:
             print("!!!ERROR 'exportCSV=True' needs 'outputPath=<Directory>' to be filled !!!")
             return None  
+    if outputPath:
+        if exportCSV == False:
+            print("!!!ERROR 'outputPath=<Directory>' needs to set 'exportCSV=True' !!!")
+            return None 
     #------------------------
     if isinstance(compounds, pd.core.series.Series):
         compounds = compounds.tolist()
@@ -198,10 +300,17 @@ def normalizeComplete(compounds, getUnnormalizedStruct=False, deTautomerize=True
     StereoisomersList, StereoisomersIdxList = normStereoisomers(compounds_r1, getStereoisomers=True, getStereoisomersIdx=True, printlogs=False)
     Stereoisomers_count = len(StereoisomersList)
     #------------------------
-    if deTautomerize:
-        compounds_r3 = normTautomers(compounds_r2, deTautomerize=True, printlogs=False)
+    if normalizeChemotypes:
+        compounds_r3 = normChemotypes(compounds_r2, normalizeChemotypes=True, printlogs=False)
     else:
-        compounds_r3 = normTautomers(compounds_r2, deTautomerize=False, printlogs=False)
+        compounds_r3 = normChemotypes(compounds_r2, normalizeChemotypes=False, printlogs=False)
+    ChemotypesList, ChemotypesIdxList = normChemotypes(compounds_r1, getChemotypes=True, getChemotypesIdx=True, printlogs=False)
+    Chemotypes_count = len(ChemotypesList)  
+    #------------------------  
+    if deTautomerize:
+        compounds_r4 = normTautomers(compounds_r3, deTautomerize=True, printlogs=False)
+    else:
+        compounds_r4 = normTautomers(compounds_r3, deTautomerize=False, printlogs=False)
     TautomersList, TautomersIdxList = normTautomers(compounds_r1, getTautomers=True, getTautomersIdx=True, printlogs=False)
     Tautomers_count  = len(TautomersList)
     #------------------------
@@ -224,27 +333,41 @@ def normalizeComplete(compounds, getUnnormalizedStruct=False, deTautomerize=True
                 print("{}/{} structure(s) is/are stereoisomer(s) BUT was/were NOT destereoisomerized \n".format(Stereoisomers_count, len(compounds)))
         else:
             print("=======================================================")
-            print("{}/{} structures are NOT stereoisomers".format(len(compounds_r2), len(compounds)))
+            print("{}/{} structures are NOT stereoisomers".format(len(compounds_r2), len(compounds)))    
+        if Chemotypes_count > 0:    
+            if normalizeChemotypes:
+                print("=======================================================")
+                compounds_r3_ = normChemotypes(compounds_r2, normalizeChemotypes=True, printlogs=False)
+                print("{}/{} structures are NOT chemotypes".format(len(compounds_r3_)-Chemotypes_count, len(compounds)))
+                print("{}/{} structure(s) is/are tautomer(s) BUT was/were normalized \n".format(Chemotypes_count, len(compounds)))
+            else:
+                print("=======================================================")
+                compounds_r3_ = normChemotypes(compounds_r2, normalizeChemotypes=False, printlogs=False)
+                print("{}/{} structures are NOT chemotypes".format(len(compounds_r3_), len(compounds)))
+                print("{}/{} structure(s) is/are tautomer(s) but was/were NOT normalized \n".format(Chemotypes_count, len(compounds)))              
+        else:
+            print("=======================================================")
+            print("{}/{} structures are NOT chemotypes \n".format(len(compounds_r2), len(compounds)))  
         if Tautomers_count > 0:    
             if deTautomerize:
                 print("=======================================================")
-                compounds_r3_ = normTautomers(compounds_r2, deTautomerize=True, printlogs=False)
-                print("{}/{} structures are NOT tautomers".format(len(compounds_r3_)-Tautomers_count, len(compounds)))
+                compounds_r4_ = normTautomers(compounds_r2, deTautomerize=True, printlogs=False)
+                print("{}/{} structures are NOT tautomers".format(len(compounds_r4_)-Tautomers_count, len(compounds)))
                 print("{}/{} structure(s) is/are tautomer(s) BUT was/were detautomerized \n".format(Tautomers_count, len(compounds)))
             else:
                 print("=======================================================")
-                compounds_r3_ = normTautomers(compounds_r2, deTautomerize=False, printlogs=False)
-                print("{}/{} structures are NOT tautomers".format(len(compounds_r3_), len(compounds)))
+                compounds_r4_ = normTautomers(compounds_r2, deTautomerize=False, printlogs=False)
+                print("{}/{} structures are NOT tautomers".format(len(compounds_r4_), len(compounds)))
                 print("{}/{} structure(s) is/are tautomer(s) but was/were NOT detautomerized \n".format(Tautomers_count, len(compounds)))              
         else:
             print("=======================================================")
             print("{}/{} structures are NOT tautomers \n".format(len(compounds_r2), len(compounds)))        
     #------------------------
-    NormalizedList    = compounds_r3
+    NormalizedList    = compounds_r4
     UnNormalizedList  = UnverifiedList + TautomersList + StereoisomersList
-    UnNormalizedLabel = len(UnverifiedList)*["UnverifiedStruct"] + len(TautomersList)*["Tautomer"] + len(StereoisomersList)*["Stereoisomer"]
-    FunctionLabel     = len(UnverifiedList)*["molStructVerify()"] + len(TautomersList)*["normTautomers()"] + len(StereoisomersList)*["normStereoisomers()"]
-    IdxLabel         = UnverifiedIdxList + TautomersIdxList + StereoisomersIdxList 
+    UnNormalizedLabel = len(UnverifiedList)*["UnverifiedStruct"] + len(ChemotypesList)*["Chemotype"] + len(TautomersList)*["Tautomer"] + len(StereoisomersList)*["Stereoisomer"]
+    FunctionLabel     = len(UnverifiedList)*["molStructVerify()"] + len(ChemotypesList)*["normChemotypes()"] + len(TautomersList)*["normTautomers()"] + len(StereoisomersList)*["normStereoisomers()"]
+    IdxLabel         = UnverifiedIdxList + ChemotypesIdxList + TautomersIdxList + StereoisomersIdxList
     df1 = pd.DataFrame(zip(UnNormalizedList, UnNormalizedLabel, FunctionLabel, IdxLabel), columns=['SMILES', 'errorTag', 'fromFunction', 'idx'])
     #------------------------
     if printlogs:

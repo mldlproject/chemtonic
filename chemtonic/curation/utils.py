@@ -3,7 +3,10 @@ import pandas as pd
 
 #==========================================================
 # validate SMILES
-def molStructVerify(compounds, getFailedStruct=False, getFailedStructIdx=False, printlogs=True):
+def molStructVerify(compounds, 
+                    getFailedStruct=False, 
+                    getFailedStructIdx=False, 
+                    printlogs=True):
     #------------------------
     if getFailedStructIdx:
         if getFailedStruct == False:
@@ -45,7 +48,10 @@ def molStructVerify(compounds, getFailedStruct=False, getFailedStructIdx=False, 
     
 #==========================================================
 # remove dupplicates
-def molDeduplicate(compounds, getDuplicates=False, getDuplicatesIdx=False, printlogs=True):
+def molDeduplicate(compounds, 
+                   getDuplicates=False, 
+                   getDuplicatesIdx=False, 
+                   printlogs=True):
     #------------------------
     if getDuplicatesIdx:
         if getDuplicates == False:

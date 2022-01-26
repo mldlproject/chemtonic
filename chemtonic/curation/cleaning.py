@@ -6,7 +6,11 @@ import os
 
 #==========================================================
 # remove SMILES of salts
-def clSalts(compounds, getSalts=False, getSaltsIdx=False, deSalt=False, printlogs=True):
+def clSalts(compounds, 
+            getSalts=False, 
+            getSaltsIdx=False, 
+            deSalt=False, 
+            printlogs=True):
     #------------------------
     if getSaltsIdx:
         if getSalts == False:
@@ -87,7 +91,11 @@ def clSalts(compounds, getSalts=False, getSaltsIdx=False, deSalt=False, printlog
         
 #==========================================================
 # remove SMILES of charged compounds
-def clCharges(compounds, getCharges=False, getChargesIdx=False, deCharges=False, printlogs=True):
+def clCharges(compounds, 
+              getCharges=False, 
+              getChargesIdx=False, 
+              deCharges=False, 
+              printlogs=True):
     #------------------------
     if getChargesIdx:
         if getCharges == False:
@@ -167,7 +175,14 @@ def clCharges(compounds, getCharges=False, getChargesIdx=False, deCharges=False,
     
 #==========================================================
 # Complete cleaning
-def cleanComplete(compounds, getUncleanedStruct=False, deSalt=False, neutralize=False, removeDuplicates=False,  getDuplicatedIdx=False, exportCSV=False, outputPath=None, printlogs=True):
+def cleanComplete(compounds, 
+                  getUncleanedStruct=False, 
+                  deSalt=False, neutralize=False, 
+                  removeDuplicates=False,  
+                  getDuplicatedIdx=False, 
+                  exportCSV=False, 
+                  outputPath=None, 
+                  printlogs=True):
     #------------------------
     if getUncleanedStruct:
         if removeDuplicates:
@@ -184,6 +199,10 @@ def cleanComplete(compounds, getUncleanedStruct=False, deSalt=False, neutralize=
         if outputPath == None:
             print("!!!ERROR 'exportCSV=True' needs 'outputPath=<Directory>' to be filled !!!")
             return None       
+    if outputPath:
+        if exportCSV == False:
+            print("!!!ERROR 'outputPath=<Directory>' needs to set 'exportCSV=True' !!!")
+            return None 
     #------------------------    
     if isinstance(compounds, pd.core.series.Series):
         compounds = compounds.tolist()
@@ -378,3 +397,5 @@ def cleanComplete(compounds, getUncleanedStruct=False, deSalt=False, neutralize=
                     df3.to_csv(filePath, index=False)
             else:
                 return df3            
+
+
